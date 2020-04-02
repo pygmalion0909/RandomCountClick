@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+  <title>랜덤 카운트</title>
+</head>
+<body>
+  <div id="app">
+    <div id="container">
+      <div id="title_container">
+        <p class="title random">Random</p>
+        <p class="title click">Click</p>
+        <p class="title counter">Counter</p>
+      </div>
+      <div id="list_container">
+        <ul class="list-group">
+          <li><span class="badge badge-danger">Role</span></li>
+          <li class="list-group-item list-group-item-success">1. 랜덤으로 1 ~ 10사이 숫자가 정해집니다</li>
+          <li class="list-group-item list-group-item-primary">2. 순서대로 "클릭카운트"를 클릭합니다</li>
+          <li class="list-group-item list-group-item-danger">3. 카운트가 0이 되면 탈락 합니다</li>
+        </ul>
+      </div>
+      <div id="btn_container">
+        <button v-on:click="checkCount" v-show="startBtn" class="btn btn-info btn-lg">클릭 카운트!</button>
+        <button v-show="rePlayBtn" @click="init" class="btn btn-danger btn-lg">
+          탈락!</br> 
+          다시하기!
+        </button>
+      </div>
+      <div id="notice_container">
+        <p>클릭횟수: {{clickNum}}</p>
+        <p>{{insertTurnNotice}}</p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        clickNum: 0,
+        randomNum: Math.floor((Math.random() * 10) + 1),
+        rePlayBtn: false,
+        startBtn: true,
+        insertTurnNotice: "",
+        successNotice: [
+          "다음사람 눌려", 
+          "행운의 여신은 당신 편 입니다.", 
+          "다음 누구냐 클릭 하거라", 
+          "Good뜨 다음!",
+          "용케도 피했군",
+          "럭키가이!",
+          "Pass Next!",
+          "다음",
+        ],
+        faileNotice: [
+          "너! 당첨", 
+          "오늘 행운의여신이 당신을 버렸네요..뜨씁..",
+          "너! 탈락!!",
+          "오늘은 당신 카드로 결제하는 날!",
+          "내 니가 걸릴 줄 알았다",
+        ],
+      },
+      methods:{
+        checkCount(){
+          this.clickNum++;
+          this.randomNum--;
+          this.notice();
+        },
+        init(){
+          this.rePlayBtn = false;
+          this.startBtn = true;
+          this.randomNum = Math.floor((Math.random() * 10) + 1);
+          this.clickNum = 0;
+          this.insertTurnNotice = ""
+        },
+        randomIndex(noticeLength){
+          let forIndex = Math.floor((Math.random() * noticeLength));
+          return forIndex;
+        },
+        notice(){
+          this.randomNum !== 0 ? this.insertTurnNotice = this.successNotice[this.randomIndex(this.successNotice.length)] : this.insertTurnNotice = this.faileNotice[this.randomIndex(this.faileNotice.length)];
+        }
+      },
+      watch: {
+        randomNum(){
+          if(this.randomNum === 0){
+            this.rePlayBtn = true;
+            this.startBtn = false;
+          }
+        },
+      },
+    })
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+</body>
+</html>

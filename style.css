@@ -1,0 +1,48 @@
+body{
+  font-family: 'Noto Sans KR', sans-serif;
+}
+ul, li, ol{
+  list-style: none;
+}
+#app{
+  width: 80%;
+  margin: 0 auto;
+}
+/* container */
+#container{
+  width: 80%;
+  margin: 0 auto;
+}
+/* title_container */
+#title_container{
+  text-align: center;
+}
+#title_container .title{
+  font-size: 45px;
+  color: rgb(126, 122, 116);
+  margin: 0 auto;
+}
+/* list_container */
+#list_container{
+  width: 50%;
+  margin: 0 auto;
+}
+/* btn_container */
+#btn_container{
+  width: 50%;
+  margin: 20px auto;
+  text-align: center;
+}
+/* notice_container */
+#notice_container{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  transition: 0.5s;
+}
+#notice_container p:nth-child(1){
+  font-size: 25px;
+}
+#notice_container p:nth-child(2){
+  font-size: 25px;
+}
